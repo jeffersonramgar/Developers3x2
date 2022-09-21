@@ -23,20 +23,28 @@
       <nav class="p-3 menu-lateral">
         <ul class="nav flex-column">
           <li class="nav-item">
-            <a class="nav-link" href="dashboard">Inicio</a>
+            <a class="nav-link" th:href="@{/}">Inicio</a>
           </li>
           <li class="nav-item" data-bs-toggle="collapse" href="#collapseIngresos" role="button" aria-expanded="false" aria-controls="collapseIngresos">
             <a class="nav-link">Ingresos</a>
             <ul class="nav nav-sub collapse w-100" id="collapseIngresos">
-              <li class="nav-item"><a class="nav-link" href="">Total ingresos-gastos</a></li>
-              <li class="nav-item"><a class="nav-link" href="">Nuevo movimiento</a></li>
+              <li class="nav-item"><a class="nav-link" th:href="@{/movimientos/listar}">Total ingresos-gastos</a></li>
+              <li class="nav-item"><a class="nav-link" th:href="@{/movimientos/nuevo_movimiento}">Nuevo movimiento</a></li>
             </ul>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" data-bs-toggle="collapse" href="#collapseUsuarios" role="button" aria-expanded="false" aria-controls="collapseUsuarios">
             <a class="nav-link">Usuarios</a>
+            <ul class="nav nav-sub collapse w-100" id="collapseUsuarios">
+              <li class="nav-item"><a class="nav-link" th:href="@{/usuarios/listar}">Todos los usuarios</a></li>
+              <li class="nav-item"><a class="nav-link" th:href="@{/usuarios/nuevo_usuario}">Nuevo usuario</a></li>
+            </ul>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" data-bs-toggle="collapse" href="#collapseEmpresas" role="button" aria-expanded="false" aria-controls="collapseEmpresas">
             <a class="nav-link">Empresas</a>
+            <ul class="nav nav-sub collapse w-100" id="collapseEmpresas">
+              <li class="nav-item"><a class="nav-link" th:href="@{/empresas/listar}">Todas las empresas</a></li>
+              <li class="nav-item"><a class="nav-link" th:href="@{/empresas/nueva_empresa}">Nuevo empresa</a></li>
+            </ul>
           </li>
         </ul>
       </nav>
