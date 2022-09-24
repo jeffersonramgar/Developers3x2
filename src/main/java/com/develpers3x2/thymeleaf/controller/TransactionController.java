@@ -26,9 +26,15 @@ public class TransactionController {
     public String GetListTransactionByenterprise(Model model){
         LOG.log(Level.INFO, "GetListTransactionByenterprise");
         List<Transaction> transacciones = transactionService.findAll(1);
+        Double total = 0.0;
+
+        for (Transaction mov : transacciones)
+            total+=mov.getAmount();
+
         titulo = "Lista de transacciones";
         model.addAttribute("titulo", titulo);
         model.addAttribute("movimientos", transacciones);
+        model.addAttribute("total", total);
 
         return "movimientos/listar";
     }
