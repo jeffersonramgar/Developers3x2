@@ -1,6 +1,10 @@
 package com.develpers3x2.thymeleaf.entidad;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Negative;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.Date;
 
 @Entity
@@ -10,8 +14,10 @@ public class Transaction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_transaction", nullable = false)
     private long id;
+    @javax.validation.constraints.NotEmpty
     @Column(name = "concept")
     private String concept;
+    @NotNull
     @Column(name = "amount")
     private Double amount;
     @Column(name = "create_at")

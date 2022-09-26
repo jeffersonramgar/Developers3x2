@@ -26,14 +26,7 @@
           <li class="nav-item">
             <a class="nav-link" th:href="@{/}">Inicio</a>
           </li>
-          <li class="nav-item"><a class="nav-link" th:href="@{/movements/list}">Movimientos</a></li>
-          <li class="nav-item" data-bs-toggle="collapse" href="#collapseIngresos" role="button" aria-expanded="false" aria-controls="collapseIngresos">
-            <a class="nav-link">Ingresos</a>
-            <ul class="nav nav-sub collapse w-100" id="collapseIngresos">
-              <li class="nav-item"><a class="nav-link" th:href="@{/movements/list}">Total ingresos-gastos</a></li>
-              <li class="nav-item"><a class="nav-link" th:href="@{/movimientos/nuevo_movimiento}">Nuevo movimiento</a></li>
-            </ul>
-          </li>
+          <li class="nav-item"><a class="nav-link" th:href="@{/movements/} + ${usuario.enterprise.id} + @{/list} ">Movimientos</a></li>
           <li class="nav-item" data-bs-toggle="collapse" href="#collapseUsuarios" role="button" aria-expanded="false" aria-controls="collapseUsuarios">
             <a class="nav-link">Usuarios</a>
             <ul class="nav nav-sub collapse w-100" id="collapseUsuarios">
