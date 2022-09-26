@@ -1,5 +1,5 @@
 <!doctype html >
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="layout/plantilla :: head"></head>
 
 <body>
@@ -12,18 +12,19 @@
       <div class="d-flex align-items-center justify-content-center flex-grow-1 p-5">
         <div class="d-sm-flex flex-column align-items-center justify-content-center w-100">
           <div class="w-100">
-            <form method="post" th:action="@{/movements/guardar}" th:object="${transaccion}">
+            <form method="post" th:action="@{/guardar}" th:object="${transaccion}">
               <input type="hidden" name="usuario" id="usuario" th:value="${usuario.idUser}">
               <div class="mb-3">
                 <label class="form-label" for="concept">Concepto</label>
                 <input th:field="*{concept}" name="concept" id="concept" type="text" class="form-control">
 
               </div>
-              <div class="alert alert-warning" th:if="${#fields.hasErrors('concept')}" th:errors="*{concept}"></div>
+              <div class="alert alert-warning" th:if="${#fields.hasErrors('concept')}">probando</div>
               <div class="mb-3">
                 <label class="form-label" for="amount">Monto</label>
                 <input th:field="*{amount}" name="amount" id="amount" type="number" class="form-control">
               </div>
+              <div class="alert alert-warning" th:if="${#fields.hasErrors('amount')}">probando</div>
               <div class="mb-3">
                 <input type="submit" name="guardar" value="Guardar movimiento" class="btn btn-primary">
               </div>

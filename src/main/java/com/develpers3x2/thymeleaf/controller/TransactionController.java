@@ -10,7 +10,6 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 
 
 
@@ -74,13 +73,9 @@ public class TransactionController {
         return "movimientos/modificar";
 
     }
-    @PostMapping("/movements/guardar")
+    @PostMapping("/guardar")
     public String saveTransaction(@Valid Transaction trans, BindingResult error, Model model, @AuthenticationPrincipal User user){
         usuario = usuarioService.findByUsername(user.getUsername());
-
-        for(ObjectError e: error.getAllErrors())
-            System.out.println("Error encontrado en el formulario " + e.toString());
-
 
         if (error.hasErrors()){
             titulo = "Datos de transacción";
@@ -93,7 +88,7 @@ public class TransactionController {
         }
 
         trans.setEstado(true);
-        trans = transactionService.createTransaction(1,trans);
+        trans = transactionService.createTransaction((int) usuario.getEnterprise().getId(), trans);
 
         return "redirect:/movements/" + usuario.getEnterprise().getId() + "/list";
 
