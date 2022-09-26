@@ -42,17 +42,20 @@ public class TransactionController {
     @GetMapping("/movements/{id_enterprise}/list")
     public String GetListTransactionByenterprise(@PathVariable("id_enterprise") int id_enterprise,  Model model, @AuthenticationPrincipal User user){
         usuario = usuarioService.findByUsername(user.getUsername());
-        List<Transaction> transacciones = transactionService.findAll(id_enterprise);
-        System.out.println(transacciones);
+        List<Transaction> transactions = transactionService.findAll(id_enterprise);
+        System.out.println(transactions);
         Double total = 0.0;
 
-        for (Transaction mov : transacciones)
-            total+=mov.getAmount();
+        for (Transaction mov : transactions)
+            if(mov.getAmount() == null)
+                total = total+0;
+            else
+                total+=mov.getAmount();
 
         titulo = "Transacciones de " + usuario.getEnterprise().getName();
         model.addAttribute("titulo", titulo);
         model.addAttribute("usuario", usuario);
-        model.addAttribute("movimientos", transacciones);
+        model.addAttribute("movimientos", transactions);
         model.addAttribute("total", total);
 
         return "movimientos/listar";
@@ -62,19 +65,19 @@ public class TransactionController {
         usuario = usuarioService.findByUsername(user.getUsername());
         LOG.log(Level.INFO, "createTransaction");
 
-        Transaction transaccion = new Transaction();
+        Transaction transaction = new Transaction();
 
         titulo = "Datos de transacción";
 
         model.addAttribute("titulo", titulo);
-        model.addAttribute("transaccion", transaccion);
+        model.addAttribute("transaction", transaction);
         model.addAttribute("usuario", usuario);
 
         return "movimientos/modificar";
 
     }
     @PostMapping("/guardar")
-    public String saveTransaction(@Valid Transaction trans, BindingResult error, Model model, @AuthenticationPrincipal User user){
+    public String saveTransaction(@Valid Transaction transaction, BindingResult error, Model model, @AuthenticationPrincipal User user){
         usuario = usuarioService.findByUsername(user.getUsername());
 
         if (error.hasErrors()){
@@ -82,13 +85,12 @@ public class TransactionController {
 
             model.addAttribute("titulo", titulo);
             model.addAttribute("usuario", usuario);
-            model.addAttribute("transaccion", trans);
 
             return "movimientos/modificar";
         }
 
-        trans.setEstado(true);
-        trans = transactionService.createTransaction((int) usuario.getEnterprise().getId(), trans);
+        transaction.setEstado(true);
+        transaction = transactionService.createTransaction((int) usuario.getEnterprise().getId(), transaction);
 
         return "redirect:/movements/" + usuario.getEnterprise().getId() + "/list";
 
