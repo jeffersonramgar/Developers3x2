@@ -42,9 +42,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.authorizeRequests()
-                .antMatchers("/movements/modificar","/guardar")
+                .antMatchers("/movements/modificar","/movements/guardar")
                 .hasRole("ADMIN")
-                .antMatchers("/", "/movements/list")
+                .antMatchers("/", "/movements/**/list")
                 .hasAnyRole("ADMIN", "USER")
                 .and()
                 .formLogin()

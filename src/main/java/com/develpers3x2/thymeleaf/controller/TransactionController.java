@@ -5,27 +5,31 @@ import com.develpers3x2.thymeleaf.entidad.Usuario;
 import com.develpers3x2.thymeleaf.service.ITransactionService;
 import com.develpers3x2.thymeleaf.service.IUsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-
-
-
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.validation.Errors;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Valid;
 import javax.validation.Validator;
 import javax.validation.constraints.NotNull;
-
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 @Controller
 public class TransactionController {
 
@@ -58,39 +62,30 @@ public class TransactionController {
         return "movimientos/listar";
     }
     @GetMapping("/movements/modificar")
-    public String createTransaction(Model model, @AuthenticationPrincipal User user){
-        usuario = usuarioService.findByUsername(user.getUsername());
-        LOG.log(Level.INFO, "createTransaction");
+    public String createTransaction(Model model){
 
         Transaction transaccion = new Transaction();
 
-        titulo = "Datos de transacción";
-
-        model.addAttribute("titulo", titulo);
         model.addAttribute("transaccion", transaccion);
-        model.addAttribute("usuario", usuario);
 
         return "movimientos/modificar";
 
     }
-    @PostMapping("/guardar")
-    public String saveTransaction(@Valid Transaction trans, BindingResult error, Model model, @AuthenticationPrincipal User user){
-        usuario = usuarioService.findByUsername(user.getUsername());
+    @PostMapping("/movements/guardar")
+    public String saveTransaction(@Valid Transaction trans, BindingResult error, Model model){
+        LOG.log(Level.INFO,"guardarMovimiento");
 
-        if (error.hasErrors()){
-            titulo = "Datos de transacción";
-
-            model.addAttribute("titulo", titulo);
-            model.addAttribute("usuario", usuario);
+        for(ObjectError e : error.getAllErrors())
+            System.out.println(e.toString());
+        if(error.hasErrors()) {
             model.addAttribute("transaccion", trans);
-
             return "movimientos/modificar";
         }
 
         trans.setEstado(true);
-        trans = transactionService.createTransaction((int) usuario.getEnterprise().getId(), trans);
+        trans = transactionService.createTransaction(2, trans);
 
-        return "redirect:/movements/" + usuario.getEnterprise().getId() + "/list";
+        return "redirect:/movements/2/list";
 
 
     }
