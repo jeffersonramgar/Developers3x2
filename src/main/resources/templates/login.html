@@ -1,0 +1,33 @@
+<!doctype html >
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/plantilla :: head"></head>
+
+<body>
+<div class="d-flex min-vh-100">
+  <div class="d-flex align-items-stretch p-0 w-100">
+
+    <div class="d-flex flex-column flex-grow-1 justify-content-center align-items-strech">
+      <div class="card">
+        <form method="post" th:action="@{/login}">
+          <!-- Email input -->
+          <div class="form-outline mb-4">
+            <input type="text" id="username" name="username" class="form-control" />
+            <label class="form-label" for="username">Usuario</label>
+          </div>
+
+          <!-- Password input -->
+          <div class="form-outline mb-4">
+            <input type="password" id="password" name="password" class="form-control" />
+            <label class="form-label" for="password">Contraseña</label>
+          </div>
+          <!-- Submit button -->
+          <input type="submit" class="btn btn-primary" value="ingresar">
+        </form>
+      </div>
+
+    </div><!-- end col-->
+  </div>
+</div>
+<footer th:replace="layout/plantilla :: footer"> </footer>
+</body>
+</html>

@@ -12,6 +12,12 @@ public class Usuario {
     private long idUser;
     @Column(name="email", nullable = false)
     private String email;
+    @Column(name="username", unique = true)
+    private String username;
+
+    @Column(name="password", nullable = false)
+    private String password;
+
     @OneToOne
     @JoinColumn(name="id_profile")
     private Profile profile;
@@ -31,13 +37,12 @@ public class Usuario {
         this.createdAt = new Date();
     }
 
-    public Usuario(long idUser, String email, RoleName role, Enterprise enterprise, boolean estado) {
-        this.idUser = idUser;
-        this.email = email;
-        this.role = role;
-        this.enterprise = enterprise;
-        this.createdAt = new Date();
-        this.estado = estado;
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public long getIdUser() {
@@ -104,6 +109,14 @@ public class Usuario {
 
     public boolean isEstado() {
         return estado;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public void setEstado(boolean estado) {

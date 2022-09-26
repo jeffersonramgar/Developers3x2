@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="id" dir="ltr" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layout/plantilla :: head"></head>
+
+<body class="text-white py-5" style="background:#21364F">
+<div class="container py-5">
+    <div class="row">
+        <div class="col-md-2 text-center">
+            <p><i class="fa fa-exclamation-triangle fa-5x"></i><br/>Error: 403</p>
+        </div>
+        <div class="col-md-10">
+            <h3>OPPSSS!!!! Lo sentimos...</h3>
+            <br>
+            <p>Lo sentimos, su acceso ha sido denegado por razones de seguridad de nuestro servidor y también de nuestros datos confidenciales.<br/>Vuelve a la página anterior para seguir navegando</p>
+            <br>
+            <a class="btn btn-danger" href="javascript:history.back()">Regresar</a>
+        </div>
+    </div>
+</div>
+<footer th:replace="layout/plantilla :: footer"> </footer>
+</body>
+
+</html>
