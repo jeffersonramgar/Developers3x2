@@ -12,15 +12,10 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 
 
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-
-import javax.validation.ConstraintViolation;
 import javax.validation.Valid;
-import javax.validation.Validator;
-import javax.validation.constraints.NotNull;
 
 import java.util.List;
 import java.util.logging.Level;
@@ -77,8 +72,11 @@ public class TransactionController {
 
     }
     @PostMapping("/guardar")
-    public String saveTransaction(@Valid Transaction transaction, BindingResult error, Model model, @AuthenticationPrincipal User user){
+    public String saveTransaction(@RequestParam("typeTransaction") boolean typeTransaction, @Valid Transaction transaction, BindingResult error, Model model, @AuthenticationPrincipal User user){
         usuario = usuarioService.findByUsername(user.getUsername());
+
+        for (ObjectError e : error.getAllErrors())
+            System.out.println(e.toString());
 
         if (error.hasErrors()){
             titulo = "Datos de transacción";
@@ -88,6 +86,9 @@ public class TransactionController {
 
             return "movimientos/modificar";
         }
+
+        if(!typeTransaction)
+            transaction.setAmount(transaction.getAmount() * -1);
 
         transaction.setEstado(true);
         transaction = transactionService.createTransaction((int) usuario.getEnterprise().getId(), transaction);

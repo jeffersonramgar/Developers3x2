@@ -1,6 +1,7 @@
 package com.develpers3x2.thymeleaf.entidad;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
@@ -15,7 +16,8 @@ public class Transaction {
     @NotEmpty(message = "El concepto no puede estar vacio")
     @Column(name = "concept")
     private String concept;
-    @NotNull(message = "El valor no puede estar vacio")
+    @NotNull(message = "El monto no puede estar vacio")
+    @Min(value = 1, message = "debe ser un valor mayor a 0")
     @Column(name = "amount")
     private Double amount;
     @Column(name = "create_at")
@@ -29,20 +31,6 @@ public class Transaction {
 
     @Column(name = "estado", nullable = false)
     private boolean estado;
-
-
-    public Transaction() {
-        this.createdAt = new Date();
-    }
-
-    public Transaction(String concept, Double amount, boolean estado) {
-        this.concept = concept;
-        this.amount = amount;
-        //this.user = user;
-        //this.enterprise = enterprise;
-        this.createdAt  = new Date();
-        this.estado = estado;
-    }
 
     public Usuario getUsuario() {
         return usuario;

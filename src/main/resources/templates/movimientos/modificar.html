@@ -21,8 +21,15 @@
               </div>
               <div class="alert alert-warning" th:if="${#fields.hasErrors('concept')}" th:errors="*{concept}">probando</div>
               <div class="mb-3">
+                <label class="form-label" for="amount">Tipo de movimiento</label>
+                <select name="typeTransaction" id="typeTransaction" class="form-control" >
+                  <option value="false">Egreso</option>
+                  <option value="true" >Ingreso</option>
+                </select>
+              </div>
+              <div class="mb-3">
                 <label class="form-label" for="amount">Monto</label>
-                <input th:field="*{amount}" name="amount" id="amount" type="number" class="form-control">
+                <input th:field="*{amount}" name="amount" id="amount" type="number" class="form-control" >
               </div>
               <div class="alert alert-warning" th:if="${#fields.hasErrors('amount')}" th:errors="*{amount}">probando</div>
               <div class="mb-3">
