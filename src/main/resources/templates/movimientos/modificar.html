@@ -12,8 +12,9 @@
       <div class="d-flex align-items-center justify-content-center flex-grow-1 p-5">
         <div class="d-sm-flex flex-column align-items-center justify-content-center w-100">
           <div class="w-75" style="max-width:600px;">
-            <form method="post" th:action="@{/guardar}" th:object="${transaction}">
-              <input type="hidden" name="usuario" id="usuario" th:value="${usuario.idUser}">
+
+            <form method="post" th:action="@{/movements/guardar}" th:object="${transaction}">
+              <input type="hidden" name="usuario" id="usuario" th:value="${usuarioLog.idUser}">
               <div class="mb-3">
                 <label class="form-label" for="concept">Concepto</label>
                 <input th:field="*{concept}" name="concept" id="concept" type="text" class="form-control">

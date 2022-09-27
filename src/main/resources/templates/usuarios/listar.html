@@ -23,7 +23,7 @@
                                 <th scope="col" class="text-center">Telefono</th>
                                 <th scope="col" class="text-center">email</th>
                                 <th scope="col" class="text-center">role</th>
-                                <th scope="col" class="text-center">editar</th>
+                                <th scope="col" class="text-center" sec:authorize="hasRole('ROLE_ADMIN')">editar</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -35,20 +35,14 @@
                                 <td class="text-center" th:text="${user.email}"></td>
                                 <td class="text-center"  th:if="${user.role.name == 'ROLE_ADMIN'}">Administrador</td>
                                 <td class="text-center"  th:if="${user.role.name == 'ROLE_USER'}">Usuario</td>
-                                <td class="text-center" >
+                                <td class="text-center"  sec:authorize="hasRole('ROLE_ADMIN')">
                                     <a th:href="@{/usuarios/editar/} + ${user.idUser}" ><i class="fa fa-pencil me-3" aria-hidden="true"></i></a>
-                                    <a th:href="@{/usuarios/eliminar/} + ${usuario.idUser}" ><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                    <a th:href="@{/usuarios/eliminar/} + ${user.idUser}" ><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                                 </td>
                             </tr>
 
                             </tbody>
-
                         </table>
-
-                    </div>
-
-                    <div class="w-100">
-                        <h2>Total: <strong>$ <span th:text="${#numbers.formatDecimal(total, 0, 'COMMA', 0, 'POINT')}"></span></strong></h2>
                     </div>
 
 

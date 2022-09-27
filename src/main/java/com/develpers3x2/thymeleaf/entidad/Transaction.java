@@ -17,7 +17,7 @@ public class Transaction {
     @Column(name = "concept")
     private String concept;
     @NotNull(message = "El monto no puede estar vacio")
-    @Min(value = 1, message = "debe ser un valor mayor a 0")
+    //@Min(value = 1, message = "debe ser un valor mayor a 0")
     @Column(name = "amount")
     private Double amount;
     @Column(name = "create_at")

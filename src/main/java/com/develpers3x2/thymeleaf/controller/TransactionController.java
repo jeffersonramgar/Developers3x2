@@ -25,7 +25,7 @@ import java.util.logging.Logger;
 public class TransactionController {
 
     private String titulo;
-    private Usuario usuario;
+    private Usuario usuarioLog;
 
     @Autowired
     private ITransactionService transactionService;
@@ -35,8 +35,8 @@ public class TransactionController {
     private final Logger LOG = Logger.getLogger("" + TransactionController.class);
 
     @GetMapping("/movements/{id_enterprise}/list")
-    public String GetListTransactionByenterprise(@PathVariable("id_enterprise") int id_enterprise,  Model model, @AuthenticationPrincipal User user){
-        usuario = usuarioService.findByUsername(user.getUsername());
+    public String GetListTransactionByenterprise(@PathVariable("id_enterprise") int id_enterprise,  Model model, @AuthenticationPrincipal User usuarioLog){
+        this.usuarioLog = usuarioService.findByUsername(usuarioLog.getUsername());
         List<Transaction> transactions = transactionService.findAll(id_enterprise);
         System.out.println(transactions);
         Double total = 0.0;
@@ -47,17 +47,17 @@ public class TransactionController {
             else
                 total+=mov.getAmount();
 
-        titulo = "Transacciones de " + usuario.getEnterprise().getName();
+        titulo = "Transacciones de " + this.usuarioLog.getEnterprise().getName();
         model.addAttribute("titulo", titulo);
-        model.addAttribute("usuario", usuario);
+        model.addAttribute("usuarioLog", this.usuarioLog);
         model.addAttribute("movimientos", transactions);
         model.addAttribute("total", total);
 
         return "movimientos/listar";
     }
     @GetMapping("/movements/modificar")
-    public String createTransaction(Model model, @AuthenticationPrincipal User user){
-        usuario = usuarioService.findByUsername(user.getUsername());
+    public String createTransaction(Model model, @AuthenticationPrincipal User usuarioLog){
+        this.usuarioLog = usuarioService.findByUsername(usuarioLog.getUsername());
         LOG.log(Level.INFO, "createTransaction");
 
         Transaction transaction = new Transaction();
@@ -66,14 +66,14 @@ public class TransactionController {
 
         model.addAttribute("titulo", titulo);
         model.addAttribute("transaction", transaction);
-        model.addAttribute("usuario", usuario);
+        model.addAttribute("usuarioLog", this.usuarioLog);
 
         return "movimientos/modificar";
 
     }
-    @PostMapping("/guardar")
-    public String saveTransaction(@RequestParam("typeTransaction") boolean typeTransaction, @Valid Transaction transaction, BindingResult error, Model model, @AuthenticationPrincipal User user){
-        usuario = usuarioService.findByUsername(user.getUsername());
+    @PostMapping("/movements/guardar")
+    public String saveTransaction(@RequestParam("typeTransaction") boolean typeTransaction, @Valid Transaction transaction, BindingResult error, Model model, @AuthenticationPrincipal User usuarioLog){
+        this.usuarioLog = usuarioService.findByUsername(usuarioLog.getUsername());
 
         for (ObjectError e : error.getAllErrors())
             System.out.println(e.toString());
@@ -82,7 +82,7 @@ public class TransactionController {
             titulo = "Datos de transacción";
 
             model.addAttribute("titulo", titulo);
-            model.addAttribute("usuario", usuario);
+            model.addAttribute("usuarioLog", this.usuarioLog);
 
             return "movimientos/modificar";
         }
@@ -91,9 +91,9 @@ public class TransactionController {
             transaction.setAmount(transaction.getAmount() * -1);
 
         transaction.setEstado(true);
-        transaction = transactionService.createTransaction((int) usuario.getEnterprise().getId(), transaction);
+        transaction = transactionService.createTransaction((int) this.usuarioLog.getEnterprise().getId(), transaction);
 
-        return "redirect:/movements/" + usuario.getEnterprise().getId() + "/list";
+        return "redirect:/movements/" + this.usuarioLog.getEnterprise().getId() + "/list";
 
 
     }

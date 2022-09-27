@@ -1,6 +1,7 @@
 package com.develpers3x2.thymeleaf.entidad;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.util.Date;
 
 @Entity
@@ -10,12 +11,16 @@ public class Enterprise {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id_empresa", nullable = false)
     private long id;
+    @NotEmpty(message = "El nombre no puede estar vacio")
     @Column(name="name")
     private String name;
+    @NotEmpty(message = "El documento no puede estar vacio")
     @Column(name="document")
     private String document;
+    @NotEmpty(message = "El teléfono no puede estar vacio")
     @Column(name="phone")
     private String phone;
+    @NotEmpty(message = "La dirección no puede estar vacia")
     @Column(name="address")
     private String address;
     @Column(name="create_at")

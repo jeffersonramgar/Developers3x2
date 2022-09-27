@@ -1,6 +1,7 @@
 package com.develpers3x2.thymeleaf.entidad;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.util.Date;
 
 @Entity
@@ -10,8 +11,10 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id_user", nullable = false)
     private long idUser;
+    @NotEmpty(message = "El correo electronico no puede estar vacio")
     @Column(name="email", nullable = false)
     private String email;
+    @NotEmpty(message = "El usuario no puede estar vacio")
     @Column(name="username", unique = true)
     private String username;
 

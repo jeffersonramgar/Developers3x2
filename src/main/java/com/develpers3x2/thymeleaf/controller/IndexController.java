@@ -16,18 +16,18 @@ import java.util.logging.Logger;
 public class IndexController {
     @Autowired
     private IUsuarioService usuarioService;
-    private Usuario usuario;
+    private Usuario usuarioLog;
 
     private final Logger LOG = Logger.getLogger("" + TransactionController.class);
     private String titulo;
     @GetMapping("/")
-    public String index(Model model, @AuthenticationPrincipal User user){
-        usuario = usuarioService.findByUsername(user.getUsername());
-        System.out.println(usuario);
-        LOG.log(Level.INFO, ""+user);
+    public String index(Model model, @AuthenticationPrincipal User usuarioLog){
+        this.usuarioLog= usuarioService.findByUsername(usuarioLog.getUsername());
+        System.out.println(this.usuarioLog);
+        LOG.log(Level.INFO, ""+this.usuarioLog);
         titulo = "Manejador de usuarios";
         model.addAttribute("titulo",titulo);
-        model.addAttribute("usuario",usuario);
+        model.addAttribute("usuarioLog",this.usuarioLog);
         return "index";
     }
 }

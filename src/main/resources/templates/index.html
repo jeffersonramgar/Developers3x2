@@ -12,7 +12,7 @@
             <div class="d-flex align-items-center justify-content-center flex-grow-1 p-5">
                 <div class="d-sm-flex align-items-stretch  gap-4">
                     <div class="col-sm d-flex flex-column cajon-btn justify-content-center align-items-center p-3 rounded">
-                        <a th:href="@{/movements/} + ${usuario.enterprise.id} + @{/list} ">
+                        <a th:href="@{/movements/} + ${usuarioLog.enterprise.id} + @{/list} ">
                             <div class="text-center imagen-btn">
                                 <img class="w-75" th:src="@{/img/iconos_movimientos.svg}" alt="" />
                             </div>
@@ -35,7 +35,7 @@
 
 
                     <div class="col-sm d-flex flex-column cajon-btn justify-content-center align-items-center p-3 rounded">
-                        <a href="#">
+                        <a th:href="@{/enterprises/listar}">
                             <div class="text-center imagen-btn">
                                 <img class="w-75" th:src="@{/img/iconos_empresas.svg}" alt="" />
                             </div>
@@ -45,7 +45,7 @@
                         </a>
                     </div>
                 </div>
-                <div th:text="${usuario.enterprise.id}"></div>
+                <div th:text="${usuarioLog.enterprise.id}"></div>
             </div>
         </div><!-- end col-->
     </div>
