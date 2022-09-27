@@ -1,0 +1,60 @@
+<!doctype html >
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="layout/plantilla :: head"></head>
+
+<body>
+<div class="d-flex min-vh-100">
+  <div class="d-flex align-items-stretch p-0 w-100">
+    <aside th:replace="layout/plantilla :: aside"> </aside><!-- end .barra-lateral-->
+
+    <div class="d-flex flex-column flex-grow-1 justify-content-center align-items-strech">
+      <div th:replace="layout/plantilla :: header"></div>
+      <div class="d-flex align-items-center justify-content-center flex-grow-1 p-5">
+        <div class="d-sm-flex flex-column align-items-center justify-content-center w-100">
+          <div class="w-100">
+            <h1 th:text="${titulo}" class="mb-5"></h1>
+            <a th:href="@{/movements/modificar}" class="btn btn-primary ms-auto" sec:authorize="hasRole('ROLE_ADMIN')">Nuevo Movimiento</a>
+            <table class="table table-striped">
+              <thead>
+              <tr>
+                <th scope="col" class="text-center">#</th>
+                <th scope="col" class="text-center">Concepto</th>
+                <th scope="col" class="text-center">Monto</th>
+                <th scope="col" class="text-center">Usuario</th>
+                <th scope="col" class="text-center">Fecha</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr th:each="movimiento, contador : ${movimientos}" th:if="${movimiento.estado}">
+                <td th:text="${contador.count}"></td>
+                <td th:text="${movimiento.concept}"></td>
+                <td class="text-end" th:text="${#numbers.formatDecimal(movimiento.amount, 0, 'COMMA', 0, 'POINT')}">/td>
+                <td class="text-center" th:text="${movimiento.usuario.profile.nombre}"></td>
+                <td class="text-center" th:text="${movimiento.createdAt}"></td>
+              </tr>
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+          <div class="w-100">
+            <h2>Total: <strong>$ <span th:text="${#numbers.formatDecimal(total, 0, 'COMMA', 0, 'POINT')}"></span></strong></h2>
+          </div>
+
+
+        </div>
+
+
+
+
+
+
+      </div>
+    </div><!-- end col-->
+  </div>
+</div>
+<footer th:replace="layout/plantilla :: footer"> </footer>
+</body>
+</html>

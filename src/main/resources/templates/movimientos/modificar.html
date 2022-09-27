@@ -1,0 +1,50 @@
+<!doctype html >
+<html lang="es" xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="layout/plantilla :: head"></head>
+
+<body>
+<div class="d-flex min-vh-100">
+  <div class="d-flex align-items-stretch p-0 w-100">
+    <aside th:replace="layout/plantilla :: aside"> </aside><!-- end .barra-lateral-->
+
+    <div class="d-flex flex-column flex-grow-1 justify-content-center align-items-strech">
+      <div th:replace="layout/plantilla :: header"></div>
+      <div class="d-flex align-items-center justify-content-center flex-grow-1 p-5">
+        <div class="d-sm-flex flex-column align-items-center justify-content-center w-100">
+          <div class="w-75" style="max-width:600px;">
+
+            <form method="post" th:action="@{/movements/guardar}" th:object="${transaction}">
+              <input type="hidden" name="usuario" id="usuario" th:value="${usuarioLog.idUser}">
+              <div class="mb-3">
+                <label class="form-label" for="concept">Concepto</label>
+                <input th:field="*{concept}" name="concept" id="concept" type="text" class="form-control">
+
+              </div>
+              <div class="alert alert-warning" th:if="${#fields.hasErrors('concept')}" th:errors="*{concept}">probando</div>
+              <div class="mb-3">
+                <label class="form-label" for="amount">Tipo de movimiento</label>
+                <select name="typeTransaction" id="typeTransaction" class="form-control" >
+                  <option value="false">Egreso</option>
+                  <option value="true" >Ingreso</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label class="form-label" for="amount">Monto</label>
+                <input th:field="*{amount}" name="amount" id="amount" type="number" class="form-control" >
+              </div>
+              <div class="alert alert-warning" th:if="${#fields.hasErrors('amount')}" th:errors="*{amount}">probando</div>
+              <div class="mb-3">
+                <input type="submit" name="guardar" value="Guardar movimiento" class="btn btn-primary">
+              </div>
+            </form>
+
+          </div>
+        </div>
+
+      </div>
+    </div><!-- end col-->
+  </div>
+</div>
+<footer th:replace="layout/plantilla :: footer"> </footer>
+</body>
+</html>

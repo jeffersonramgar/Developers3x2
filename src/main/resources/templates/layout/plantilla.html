@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:fragment="head">
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.0/css/bootstrap.min.css}">
+  <link rel="stylesheet" th:href="@{/webjars/font-awesome/4.7.0/css/font-awesome.css}">
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+  <title th:text="${titulo}"></title>
+</head>
+
+<body>
+<div class="d-flex min-vh-100">
+  <div class="d-flex align-items-stretch p-0 w-100">
+    <aside class="barra-lateral" th:fragment="aside">
+      <div class="p-3">
+        <div class="text-center mb-5">
+          <img th:src="@{/img/logo_developers.svg}" class="logo_pri" alt="">
+        </div>
+      </div>
+      <nav class="p-3 menu-lateral">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link" th:href="@{/}">Inicio</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" th:href="@{/movements/} + ${usuarioLog.enterprise.id} + @{/list} ">Movimientos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" th:href="@{/usuarios/listar}">Usuarios</a>
+          </li>
+          <li class="nav-item">
+            <a th:href="@{/enterprises/listar}" class="nav-link">Empresas</a>
+          </li>
+        </ul>
+      </nav>
+    </aside><!-- end .barra-lateral-->
+
+    <div class="d-flex flex-column flex-grow-1 justify-content-center align-items-strech">
+
+      <div class="d-flex align-items-center flex-grow-1 p-5">
+
+        <div class="d-flex header-menu gap-3 px-3 py-2" th:fragment="header">
+          <div class="ms-auto" sec:authentication="name"></div>
+          <form method="post" th:action="@{/logout}">
+            <a href="#" onclick="this.parentNode.submit()" class="nav-link"><i class="fa fa-sign-out"></i> Salir</a>
+          </form>
+        </div>
+
+
+      </div>
+    </div><!-- end col-->
+  </div>
+</div>
+<footer class="footer fixed-bottom text-center" th:fragment="footer">
+  <small class="text-center">Diseñado y desarrollado por Developers 3x2®</small>
+  <!-- Option 1: Bootstrap Bundle with Popper -->
+  <script th:src="@{/webjars/bootstrap/5.2.0/js/bootstrap.bundle.min.js}"></script>
+</footer>
+</body>
+</html>

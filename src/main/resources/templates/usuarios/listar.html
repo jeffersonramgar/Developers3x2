@@ -1,0 +1,57 @@
+<!doctype html >
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="layout/plantilla :: head"></head>
+
+<body>
+<div class="d-flex min-vh-100">
+    <div class="d-flex align-items-stretch p-0 w-100">
+        <aside th:replace="layout/plantilla :: aside"> </aside><!-- end .barra-lateral-->
+
+        <div class="d-flex flex-column flex-grow-1 justify-content-center align-items-strech">
+            <div th:replace="layout/plantilla :: header"></div>
+            <div class="d-flex align-items-center justify-content-center flex-grow-1 p-5">
+                <div class="d-sm-flex flex-column align-items-center justify-content-center w-100">
+                    <div class="w-100">
+                        <h1 th:text="${titulo}" class="mb-5"></h1>
+                        <a th:href="@{/usuarios/modificar}" class="btn btn-primary ms-auto" sec:authorize="hasRole('ROLE_ADMIN')">Nuevo Usuario</a>
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th scope="col" class="text-center">#</th>
+                                <th scope="col" class="text-center">Nombre</th>
+                                <th scope="col" class="text-center">Empresa</th>
+                                <th scope="col" class="text-center">Telefono</th>
+                                <th scope="col" class="text-center">email</th>
+                                <th scope="col" class="text-center">role</th>
+                                <th scope="col" class="text-center" sec:authorize="hasRole('ROLE_ADMIN')">editar</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="user, contador : ${usuarios}" th:if="${user.estado}">
+                                <td th:text="${contador.count}"></td>
+                                <td th:text="${user.profile.nombre}"></td>
+                                <td class="text-end" th:text="${user.enterprise.name}"></td>
+                                <td class="text-center" th:text="${user.profile.phone}"></td>
+                                <td class="text-center" th:text="${user.email}"></td>
+                                <td class="text-center"  th:if="${user.role.name == 'ROLE_ADMIN'}">Administrador</td>
+                                <td class="text-center"  th:if="${user.role.name == 'ROLE_USER'}">Usuario</td>
+                                <td class="text-center"  sec:authorize="hasRole('ROLE_ADMIN')">
+                                    <a th:href="@{/usuarios/editar/} + ${user.idUser}" ><i class="fa fa-pencil me-3" aria-hidden="true"></i></a>
+                                    <a th:href="@{/usuarios/eliminar/} + ${user.idUser}" ><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                </td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div><!-- end col-->
+    </div>
+</div>
+<footer th:replace="layout/plantilla :: footer"> </footer>
+</body>
+</html>

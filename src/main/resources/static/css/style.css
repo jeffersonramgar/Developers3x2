@@ -1,0 +1,77 @@
+@charset "utf-8";
+/* CSS Document */
+.wrapper {
+	min-height: 100vh;
+}
+.logo_pri{
+	max-width: 210px;
+	width: 95%;
+}
+
+.header-menu, .footer {
+	background: #EBF0F3;
+}
+
+.barra-lateral {
+	background: #21364F;
+	min-width: 280px;
+}
+
+.cajon-btn {
+	border: 1px solid #dedede;
+}
+
+.cajon-btn:hover {
+	box-shadow: 0 0 6px rgba(0,0,0, .2);
+}
+a {
+	text-decoration: none;
+}
+
+a .tit_boton {
+	font-size: 1.2rem;
+	line-height: 1.1em;
+	font-weight: 700;
+	text-align: center;
+	text-decoration: none!important;
+	color: #34393D;
+}
+
+a .imagen-btn {
+	opacity: .7;
+}
+
+a:hover .tit_boton {
+	color: #000000;
+}
+
+a:hover .imagen-btn {
+	opacity: 1;
+}
+
+.nav-sub {
+	padding-left: 12px!important;
+}
+
+.menu-lateral > .nav > .nav-item {
+	border-bottom: 1px solid rgba(255,255,255,.3);
+}
+
+.menu-lateral > .nav > .nav-item > .nav-link {
+font-size: 1.2rem;
+	text-transform: uppercase;
+	color: #FFFFFF;
+	font-weight: 600;
+}
+
+.nav-sub .nav-item:not(:last-child) {
+	
+}
+
+.nav-sub .nav-link {
+	color: #ffffff;
+}
+
+.menu-lateral > .nav > .nav-item .nav-link:hover {
+	color: #00bfb7;
+}
