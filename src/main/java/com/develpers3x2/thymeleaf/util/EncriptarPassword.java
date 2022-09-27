@@ -15,4 +15,9 @@ public class EncriptarPassword {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         return encoder.encode(password);
     }
+
+    private static boolean estaEncriptado(String password) {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        return encoder.upgradeEncoding(password);
+    }
 }

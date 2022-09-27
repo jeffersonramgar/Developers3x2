@@ -13,7 +13,7 @@
         <div class="d-sm-flex flex-column align-items-center justify-content-center w-100">
           <div class="w-75" style="max-width:600px;">
 
-            <form method="post" th:action="@{usuarios/guardar}" th:object="${usuario}">
+            <form method="post" th:action="@{/usuarios/guardar}" th:object="${usuario_new}">
               <input type="hidden" name="usuario" id="usuario" th:value="${usuario.idUser}">
               <div class="mb-3">
                 <label class="form-label" for="email">Email</label>
@@ -30,15 +30,15 @@
 
               <div class="mb-3">
                 <label class="form-label" for="password">Contaseña</label>
-                <input th:field="*{password}" name="password" id="password" type="password" class="form-control" >
+                <input th:field="*{password}" name="password" id="password" type="text" class="form-control" >
               </div>
               <div class="alert alert-warning" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">probando</div>
 
               <div class="mb-3">
                 <label class="form-label" for="nombre">Nombre completo</label>
-                <input th:field="*{profile.name}" name="nombre" id="nombre" type="text" class="form-control" >
+                <input th:field="*{profile.nombre}"  name="nombre" id="nombre" type="text" class="form-control" >
               </div>
-              <div class="alert alert-warning" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">probando</div>
+              <!--<div class="alert alert-warning" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">probando</div>-->
 
               <div class="mb-3">
                 <label class="form-label" for="image">Imagen</label>
@@ -61,14 +61,15 @@
                 </select>
               </div>
 
-              <label class="form-label" for="role">Perfil </label>
-              <select th:field="*{role}" name="role" id="role" class="form-control">
-                <option value="0" selected>Selecione el perfil:</option>
-                <option th:each="rol : ${T(com.develpers3x2.thymeleaf.entidad.RoleName).values()}"
-                        th:value="${rol}"
-                        th:text="${rol}">
-                </option>
-              </select>
+              <div class="mb-3">
+                <label class="form-label" for="role">Perfil </label>
+                <select th:field="*{role}" name="role" id="role" class="form-control">
+                  <option value="0" selected>Selecione el perfil:</option>
+                  <option th:each="rol : ${T(com.develpers3x2.thymeleaf.entidad.RoleName).values()}"
+                          th:value="${rol}"><span th:text="${rol.name == 'ROLE_ADMIN'} ? 'Administrador' : 'Usuario'">Administrador</span>
+                  </option>
+                </select>
+              </div>
 
               <div class="mb-3">
                 <input type="submit" name="guardar" value="Guardar usuario" class="btn btn-primary">
